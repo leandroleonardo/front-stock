@@ -17,13 +17,13 @@ exports.getById = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  const { name, quantity, categoryId } = req.body;
+  const { name, quantity, categoryId, supplierId, image, description } = req.body;
   db.run(
-    'INSERT INTO products (name, quantity, categoryId) VALUES (?, ?, ?)',
-    [name, quantity, categoryId],
+    'INSERT INTO products (name, quantity, categoryId, supplierId, image, description) VALUES (?, ?, ?, ?, ?, ?)',
+    [name, quantity, categoryId, supplierId, image, description],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
-      res.status(201).json({ id: this.lastID, name, quantity, categoryId });
+      res.status(201).json({ id: this.lastID, name, quantity, categoryId, supplierId, image, description });
     }
   );
 };
